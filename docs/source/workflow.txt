@@ -1,0 +1,614 @@
+Yes — the demo needs its own **self-contained workflow context**, separate from the pitch deck. The demo should prove one complete vertical slice, not try to showcase every possible feature.
+
+## Demo Workflow Context
+
+### Demo objective
+
+The live demo should prove this exact product behavior:
+
+> **A user describes the storage outcome they want in natural language. Storage Intelligence converts that request into structured constraints, searches its maintained local storage index, builds an evidence-backed cleanup plan, lets the user review what will change, performs only user-approved Android-supported actions, and then measures the actual result.**
+
+The demo is **not** “look, AI found some files.”
+
+The complete loop is:
+
+**Intent → Understand → Plan → Explain → Review → Act → Re-index → Verify**
+
+---
+
+# Hero demo scenario
+
+Use a student immediately after semester exams.
+
+The student has accumulated:
+
+* Semester 1 PDFs
+* lab records
+* assignments
+* PPTs
+* previous papers
+* lecture recordings
+* downloaded ZIPs
+* screenshots
+* duplicated PDFs
+* multiple accessible copies of media/files received or downloaded through WhatsApp
+* Semester 2 material that must not be touched
+* personal DCIM/Camera photos that must not be touched
+
+Now the student needs storage for the new semester / a large update / offline lectures.
+
+The demo request:
+
+> **“Free at least 1 GB. Keep my Semester 2 files and DCIM/Camera photos. Start with Semester 1 material and exact duplicates.”**
+
+For the presentation deck we can use “2 GB” as an illustrative user request. For the live demo, **1 GB is more practical and reliable** while demonstrating exactly the same workflow.
+
+---
+
+# Demo data setup
+
+Before the demo, prepare realistic storage on the test phone.
+
+### Semester 1
+
+Folder:
+
+`Documents/College/Sem1/`
+
+Example files:
+
+* `Engineering_Maths_Unit_1.pdf`
+* `BEE_Lab_Record.pdf`
+* `Engineering_Physics_Notes.pdf`
+* `C_Programming_Assignment.zip`
+* `Sem1_Previous_Papers.pdf`
+* `Physics_Lecture_Recording.mp4`
+* `BEE_Practical_Video.mp4`
+
+Use some larger recordings/files so Semester 1 material contributes meaningful storage.
+
+### Semester 2 — protected
+
+Folder:
+
+`Documents/College/Sem2/`
+
+Example:
+
+* `DSA_Notes.pdf`
+* `Digital_Electronics_Lab.pdf`
+* `Sem2_Timetable.pdf`
+* `Current_Assignment.pdf`
+
+These must visibly remain after cleanup.
+
+### Exact duplicates
+
+Example:
+
+Original:
+
+`Documents/College/Sem1/BEE_Lab_Record.pdf`
+
+Copies:
+
+`Download/BEE_Lab_Record.pdf`
+
+`Download/BEE_Lab_Record (1).pdf`
+
+They should contain genuinely identical bytes.
+
+The app proves this using the same SHA-256 hash.
+
+### Repeated accessible messaging/download media
+
+Have duplicate accessible images/videos such as:
+
+`Download/IMG_College_Event.jpg`
+
+and another identical accessible copy associated with downloaded/shared media.
+
+In the UI describe this as:
+
+**Repeated accessible media**
+
+or, where provenance is actually known:
+
+**Repeated accessible WhatsApp media**
+
+Do not pretend to inspect WhatsApp's private internal database.
+
+### Old downloads
+
+Add:
+
+* ZIPs
+* old PDFs
+* APK/installers if appropriate
+* exported PPTs
+* recordings
+
+with realistic old timestamps.
+
+---
+
+# Screen 1 — Home / Storage Intelligence
+
+The app opens to a clean storage intelligence dashboard.
+
+Top:
+
+**Storage Intelligence**
+
+Main input:
+
+> **What do you want to do with your storage?**
+
+Example suggestion chips:
+
+**Free 1 GB**
+
+**Find exact duplicates**
+
+**Find old college files**
+
+Below that, show the existing local index at a high level:
+
+* Documents
+* Downloads
+* Media
+* Exact duplicate groups
+* Indexed items
+
+Do not make the opening screen another Android storage pie chart.
+
+The hero interaction is the query box.
+
+---
+
+# Screen 2 — User gives the goal
+
+User enters:
+
+> **Free at least 1 GB. Keep my Semester 2 files and DCIM/Camera photos. Start with Semester 1 material and exact duplicates.**
+
+This should be entered live if possible.
+
+The AI interprets the request.
+
+But instead of immediately generating chat prose, show the structured interpretation.
+
+### Parsed intent
+
+**TARGET**
+
+`≥ 1 GB`
+
+**PROTECT**
+
+`Documents/College/Sem2`
+
+`DCIM/Camera`
+
+**PRIORITIZE**
+
+`Exact duplicates`
+
+`Semester 1 material`
+
+Then:
+
+**Build cleanup plan**
+
+This is important because it demonstrates that AI translates language into constraints rather than directly manipulating files.
+
+---
+
+# Screen 3 — Cleanup plan
+
+The deterministic planner queries the local index.
+
+The generated screen should resemble:
+
+## Target
+
+**Free ≥ 1 GB**
+
+### 1. Exact duplicates
+
+Example:
+
+**185 MB**
+
+`3 duplicate groups`
+
+Label:
+
+**PROVEN**
+
+Supporting text:
+
+> Identical content confirmed by hash.
+
+### 2. Semester 1 material
+
+Example:
+
+**640 MB**
+
+`24 files`
+
+Label:
+
+**USER-DIRECTED**
+
+Supporting text:
+
+> Matches your requested Semester 1 scope.
+
+Some items may be directly located inside `/Sem1/`.
+
+Others may have been semantically associated with Semester 1.
+
+Those should have a different label:
+
+**AI-ASSISTED · REVIEW**
+
+### 3. Old downloads
+
+Example:
+
+**310 MB**
+
+Label:
+
+**USER-DIRECTED / METADATA**
+
+### Total candidate space
+
+For example:
+
+**1.13 GB selected toward ≥1 GB target**
+
+Use **actual measured values from the prepared device**, not hardcoded fictional numbers.
+
+---
+
+# Screen 4 — Show why one duplicate was selected
+
+This is a useful technical micro-demo.
+
+Tap an exact duplicate group.
+
+Show:
+
+### BEE Lab Record
+
+**Retained copy**
+
+`Documents/College/Sem1/BEE_Lab_Record.pdf`
+
+**Duplicate copies**
+
+`Download/BEE_Lab_Record.pdf`
+
+`Download/BEE_Lab_Record (1).pdf`
+
+Evidence:
+
+**Same file size**
+
+**Same SHA-256**
+
+Then:
+
+> **Keep 1 · Remove 2**
+
+This proves the product is not using an LLM to guess duplicate files.
+
+---
+
+# Screen 5 — Show semantic reasoning
+
+Then open one Semester 1 candidate.
+
+Example:
+
+`Engineering_Physics_Notes.pdf`
+
+Show:
+
+**Selected because**
+
+* Located in Semester 1 folder
+* Filename matches Semester 1 coursework
+* Requested scope: Semester 1
+
+For an AI-assisted candidate outside the obvious folder, show:
+
+`BEE Unit 4 Final.pdf`
+
+**AI-assisted match**
+
+> Associated with Semester 1 coursework from filename / accessible document context.
+
+Then clearly:
+
+**Review required**
+
+This demonstrates where AI helps without pretending AI certainty equals fact.
+
+---
+
+# Screen 6 — Final review
+
+This is the most important product screen.
+
+Large title:
+
+**Review cleanup plan**
+
+### REMOVE
+
+**Exact duplicates**
+185 MB
+
+**Semester 1 material**
+640 MB
+
+**Old downloads**
+310 MB
+
+### KEEP
+
+**Semester 2**
+
+**DCIM/Camera**
+
+**One retained copy from every duplicate group**
+
+### Target
+
+**≥1 GB**
+
+### Selected
+
+Use actual total.
+
+Then:
+
+**Review files**
+
+and
+
+**Clean selected**
+
+The user must be able to deselect individual files or groups.
+
+This is where the product solves:
+
+> “I don't want to bulk delete unless I know what is happening.”
+
+---
+
+# Screen 7 — User confirms
+
+User taps:
+
+**Clean selected**
+
+For actions requiring Android confirmation, use the appropriate Android-supported delete/trash flow.
+
+Do not fake autonomous deletion.
+
+Do not show:
+
+> “AI is deleting your files…”
+
+Instead:
+
+> **Confirm selected cleanup**
+
+The user remains in control.
+
+---
+
+# Screen 8 — Re-index and verify
+
+After the operation, the app rescans changed items and updates its local index.
+
+Show a short state:
+
+**Updating storage index…**
+
+Then result:
+
+## Cleanup complete
+
+**Requested**
+
+≥1 GB
+
+**Expected from selected items**
+
+Actual expected bytes
+
+**Measured recovered**
+
+Actual post-action measurement
+
+**Protected content**
+
+Unchanged
+
+**Index**
+
+Updated
+
+This is one of the strongest aspects of the demo.
+
+Most hackathon demos stop at:
+
+> “We recommended these files.”
+
+Ours closes the loop.
+
+---
+
+# Screen 9 — Follow-up query
+
+This is optional but extremely valuable if the live demo is stable.
+
+Ask:
+
+> **“Do I still have duplicates of my BEE lab record?”**
+
+The app checks the updated index.
+
+Response:
+
+> **One copy remains. No exact duplicates were found.**
+
+Then show the remaining path:
+
+`Documents/College/Sem1/BEE_Lab_Record.pdf`
+
+This proves that the local index is a persistent intelligence layer rather than a one-shot cleanup wizard.
+
+---
+
+# What the audience should understand from the demo
+
+Without explaining too much verbally, they should see:
+
+### Natural language has a real function
+
+It transforms:
+
+> “Free 1 GB but don't touch Semester 2”
+
+into structured constraints.
+
+### AI is not the source of truth
+
+Exact duplicates, byte counts, file metadata and recovery calculations are deterministic.
+
+### The product understands context
+
+“Semester 1” can become a meaningful cleanup scope rather than forcing the user to manually search folders.
+
+### Bulk cleanup is explainable
+
+The user knows:
+
+* why something was selected;
+* what will be removed;
+* what remains protected;
+* how much space the plan should recover.
+
+### The system remembers storage state
+
+The local index updates after actions.
+
+---
+
+# Recommended demo duration
+
+Keep the core live demo around **2.5–3.5 minutes**.
+
+Rough pacing:
+
+**0:00–0:25**
+Show existing indexed storage and explain scenario.
+
+**0:25–0:50**
+Enter natural-language request.
+
+**0:50–1:15**
+Show parsed constraints and generated plan.
+
+**1:15–1:50**
+Open one proven duplicate + one Semester 1 candidate.
+
+**1:50–2:20**
+Show final What Goes / What Stays review.
+
+**2:20–2:50**
+Confirm cleanup.
+
+**2:50–3:10**
+Show expected vs measured recovery.
+
+**3:10–3:30**
+Optional follow-up query proving index update.
+
+No wandering through menus.
+
+---
+
+# What should actually be implemented
+
+For the demo, these should genuinely work:
+
+1. **Local storage index**
+2. **File metadata collection**
+3. **Exact duplicate detection**
+4. **Semester/folder classification**
+5. **Natural-language → structured constraint parsing**
+6. **Target-space cleanup planner**
+7. **Protected-path exclusions**
+8. **Review screen**
+9. **Deletion/trash action**
+10. **Post-action re-index**
+11. **Expected vs actual recovery display**
+
+If time becomes tight, simplify semantic understanding before sacrificing the deterministic workflow.
+
+A rock-solid:
+
+**query → constraints → duplicates → Sem1 scope → plan → review → delete → verify**
+
+is far stronger than ten half-working AI features.
+
+---
+
+# How to build the planner
+
+Internally, the request becomes roughly:
+
+```text
+Target:
+  recover >= 1 GB
+
+Protected:
+  Documents/College/Sem2
+  DCIM/Camera
+
+Priority:
+  1. exact_duplicates
+  2. semester_1
+  3. old_downloads
+
+RequireReview:
+  semantic_matches
+```
+
+Then the deterministic planner retrieves candidates in priority order until:
+
+```text
+candidate_bytes >= requested_bytes
+```
+
+It respects protected paths and duplicate-retention rules.
+
+That's enough for the hackathon.
+
+---
+
+# The core demo sentence
+
+The presenter can frame the entire demo with:
+
+> **“Instead of asking the user to browse folders and decide file by file, we let them state the outcome they want. Storage Intelligence converts that into constraints, builds the plan from its local index, explains every candidate, and measures what actually changed.”**
+
+That is the demo context I would build around.

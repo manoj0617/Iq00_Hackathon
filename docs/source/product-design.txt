@@ -1,0 +1,856 @@
+You're right — the previous reply covered the **functional workflow**, but not the actual **demo app product design system**. For a hackathon, that matters a lot because judges will form an opinion from the UI in seconds.
+
+The demo app should feel like a **native Android system utility with an AI layer**, not like a chatbot pasted on top of a file manager.
+
+## Overall product feel
+
+Think:
+
+**Android Settings + Files by Google + a restrained AI command layer**
+
+Not:
+
+* neon AI dashboard
+* chat-first interface
+* cyberpunk gradients
+* giant pie charts
+* fake “smart cleaner” animations
+* excessive glassmorphism
+
+The app should feel credible enough that someone could imagine it shipping as a real system utility.
+
+### Theme
+
+Use a **light theme** to stay aligned with the deck.
+
+Base background:
+
+* warm off-white / very light neutral
+* not pure white everywhere
+
+Primary text:
+
+* near-black / dark charcoal
+
+Secondary text:
+
+* cool medium grey
+
+Accent:
+
+* one electric blue
+
+Support states:
+
+* green only for success / confirmed
+* amber only for “review required”
+* muted grey for protected / inaccessible
+* avoid red unless something is genuinely destructive
+
+### Typography
+
+Use a clean Android-native sans-serif feel.
+
+Hierarchy:
+
+* page title: strong bold
+* main metric / target: large and bold
+* section headers: medium semibold
+* card titles: semibold
+* file metadata: smaller and lighter
+* labels like PROVEN / REVIEW / PROTECTED: compact uppercase chips
+
+Do not use huge marketing-style typography inside the app.
+
+---
+
+# App navigation
+
+Keep it to **3 main destinations max**.
+
+Bottom nav:
+
+**Home**
+**Storage**
+**Activity**
+
+That's enough.
+
+Do not add:
+
+* Settings
+* Insights
+* AI
+* Cleaner
+* Reports
+* Files
+* Dashboard
+
+as separate nav items unless absolutely needed.
+
+The AI should be part of the core workflow, not a separate “AI tab.”
+
+---
+
+# Screen 1 — Home
+
+This should be the most polished screen.
+
+## Header
+
+Top-left:
+
+**Storage Intelligence**
+
+Under it:
+
+**Ask for the space you need.**
+
+Top-right:
+small refresh/index status icon.
+
+Example:
+
+**Index updated 2 min ago**
+
+## Main command box
+
+A large rounded input field:
+
+**What do you want to do with your storage?**
+
+Placeholder example:
+
+> Free 1 GB, keep Semester 2 and Camera photos
+
+Under it, suggestion chips:
+
+**Free 1 GB**
+**Find exact duplicates**
+**Find old college files**
+
+The query box should be visually dominant, but not occupy the whole screen.
+
+## Below: storage summary
+
+Use 3 compact cards:
+
+**Indexed**
+`8,432 files`
+
+**Exact duplicates**
+`12 groups`
+
+**Reviewable**
+`1.4 GB`
+
+These values should be generated from actual demo data.
+
+Then one small section:
+
+### Recently indexed groups
+
+* Semester 1
+* Semester 2
+* Downloads
+* Screenshots
+* WhatsApp Media
+
+This gives the feeling of a maintained storage model.
+
+---
+
+# Screen 2 — Parsed Intent
+
+This is important because it visually proves that AI is converting language into structured logic.
+
+After the user enters:
+
+> Free at least 1 GB. Keep Semester 2 and DCIM/Camera photos. Prioritize Semester 1 and exact duplicates.
+
+Show:
+
+## Your cleanup goal
+
+**Target**
+`≥ 1 GB`
+
+### Protect
+
+chips:
+
+* Semester 2
+* DCIM/Camera
+
+### Prioritize
+
+chips:
+
+* Exact duplicates
+* Semester 1
+* Old downloads
+
+Then a small editable area:
+
+**Plan rules**
+
+Allow remove/edit chip.
+
+Primary CTA:
+
+**Build cleanup plan**
+
+Secondary:
+
+**Edit request**
+
+This makes the app feel deterministic and inspectable.
+
+Do not instantly jump from prompt to deletion candidates.
+
+---
+
+# Screen 3 — Cleanup Plan
+
+This should be the visual center of the demo.
+
+Top:
+
+## Cleanup plan
+
+Large number:
+
+**1.12 GB selected**
+
+Small subtext:
+
+**Target: ≥1 GB**
+
+Then use stacked group cards.
+
+### Exact duplicates
+
+Header:
+**185 MB**
+
+Chip:
+**PROVEN**
+
+Subtext:
+`3 duplicate groups`
+
+Supporting line:
+
+**Identical content confirmed by hash**
+
+CTA:
+**Review 3 groups**
+
+---
+
+### Semester 1 material
+
+Header:
+**640 MB**
+
+Chip:
+**USER-DIRECTED**
+
+Subtext:
+`24 files`
+
+Supporting line:
+
+**Matches requested Semester 1 scope**
+
+CTA:
+**Review files**
+
+---
+
+### AI-assisted matches
+
+Header:
+**120 MB**
+
+Chip:
+**REVIEW REQUIRED**
+
+Supporting line:
+
+**Related to Semester 1 based on filename and accessible content**
+
+CTA:
+**Review matches**
+
+---
+
+### Old downloads
+
+Header:
+**210 MB**
+
+Chip:
+**METADATA**
+
+Supporting line:
+
+**Older files matching requested cleanup priority**
+
+---
+
+At the bottom:
+
+**Selected total**
+`1.15 GB`
+
+**Expected recovery**
+`~1.15 GB`
+
+Primary CTA:
+
+**Review final plan**
+
+---
+
+# Screen 4 — Duplicate group detail
+
+This screen is important for technical credibility.
+
+Title:
+
+**Exact duplicate**
+
+Then show the duplicate group:
+
+### Keep
+
+`Documents/College/Sem1/BEE_Lab_Record.pdf`
+
+Metadata:
+
+* 62 MB
+* Modified: date
+* SHA-256: truncated hash
+
+### Remove
+
+`Downloads/BEE_Lab_Record.pdf`
+
+`Downloads/BEE_Lab_Record (1).pdf`
+
+Then a clear technical strip:
+
+**Same size · Same SHA-256 · 3 identical copies**
+
+Bottom:
+
+**Keep 1 · Remove 2**
+
+Use a clean comparison layout.
+
+No AI icon on this page.
+
+This is deterministic.
+
+---
+
+# Screen 5 — Semantic group detail
+
+Title:
+
+**Semester 1 material**
+
+Each file card should show:
+
+filename
+source path
+size
+modified date
+
+Then one reason label:
+
+**Matched by folder**
+
+or
+
+**Matched by filename**
+
+or
+
+**AI-assisted semantic match**
+
+For AI-assisted candidates, use amber chip:
+
+**REVIEW REQUIRED**
+
+Example:
+
+`BEE_Unit4_Final.pdf`
+
+Reason:
+
+**Associated with Semester 1 coursework**
+
+Do not say:
+
+**Safe to delete**
+
+Use:
+
+**Included in plan**
+
+---
+
+# Screen 6 — Final Review
+
+This should be clean and confidence-oriented.
+
+Title:
+
+**Review cleanup**
+
+Two large sections.
+
+## Remove
+
+**1.14 GB**
+
+* Exact duplicates — 185 MB
+* Semester 1 — 640 MB
+* Old downloads — 210 MB
+* AI-assisted — 105 MB
+
+Each expandable.
+
+## Keep
+
+* Semester 2
+* DCIM/Camera
+* Starred files
+* One copy from each duplicate group
+
+Then:
+
+**Expected recovery**
+`1.14 GB`
+
+Primary CTA:
+
+**Clean selected**
+
+Secondary:
+
+**Adjust plan**
+
+This is the moment where the user understands the consequences.
+
+---
+
+# Screen 7 — Android confirmation
+
+If Android requires system confirmation, embrace that visually.
+
+The app should transition into the actual Android system flow.
+
+Do not hide it or fake it.
+
+Then return to the app.
+
+This reinforces:
+
+**we are using Android-supported deletion**
+
+---
+
+# Screen 8 — Result
+
+Title:
+
+**Cleanup complete**
+
+Use a simple success check.
+
+Then 3 cards:
+
+**Requested**
+`≥1 GB`
+
+**Expected**
+`1.14 GB`
+
+**Recovered**
+actual measured value
+
+Then:
+
+**Protected**
+`Semester 2 · DCIM/Camera`
+
+Then:
+
+**Index updated**
+
+CTA:
+
+**Ask another question**
+
+Secondary:
+
+**View activity**
+
+This screen should feel calm and factual.
+
+---
+
+# Screen 9 — Follow-up query
+
+This can reuse the Home command box.
+
+Example:
+
+> Do I still have duplicates of my BEE lab record?
+
+Answer card:
+
+**1 copy remains**
+
+**No exact duplicates found**
+
+Path:
+
+`Documents/College/Sem1/BEE_Lab_Record.pdf`
+
+This reinforces the persistent index.
+
+---
+
+# Storage tab
+
+The Storage tab is useful for judges who want to explore.
+
+Top:
+
+**Storage overview**
+
+Then sections:
+
+**Documents**
+**Downloads**
+**Media**
+**Duplicate groups**
+**Semantic groups**
+**Protected**
+
+Each with counts and total size.
+
+Do not reproduce the standard Android storage pie chart.
+
+Instead, use a structured inventory.
+
+---
+
+# Activity tab
+
+Simple event history.
+
+Example:
+
+**Today · 3:14 PM**
+Recovered 1.12 GB
+
+**Today · 3:13 PM**
+Cleanup plan approved
+
+**Today · 3:12 PM**
+Intent parsed: Semester 1 cleanup
+
+This makes the product feel complete.
+
+---
+
+# Visual components
+
+Use consistent components everywhere.
+
+### Cards
+
+* 12–16 px radius
+* subtle border
+* very soft shadow or none
+* off-white / white fill
+* 16–20 px internal padding
+
+### Chips
+
+Use for:
+
+* PROVEN
+* USER-DIRECTED
+* AI-ASSISTED
+* REVIEW REQUIRED
+* PROTECTED
+
+Keep them small and consistent.
+
+### Icons
+
+Use simple line icons:
+
+* shield
+* folder
+* document
+* hash
+* spark / AI
+* lock
+* check
+* recycle / clean
+* database
+
+No cartoon icons.
+
+---
+
+# Color logic
+
+Use color semantically.
+
+**Blue**
+primary interaction / selected state
+
+**Green**
+confirmed / proven / completed
+
+**Amber**
+requires review
+
+**Grey**
+protected / inaccessible / informational
+
+Do not use a rainbow of colors for categories.
+
+---
+
+# AI visual language
+
+The AI layer should be subtle.
+
+Use one small sparkle/spark icon next to:
+
+**AI-assisted match**
+
+or
+
+**Intent interpreted**
+
+Do not create:
+
+* animated AI orb
+* robot mascot
+* glowing purple prompt box
+* giant “AI” badge
+
+The product is about **storage intelligence**, not “look, AI!”
+
+---
+
+# Mobile layout principles
+
+Design for a real Android phone.
+
+Use:
+
+* 16dp side margins
+* 12–16dp card gaps
+* 48dp minimum touch targets
+* bottom-sheet patterns where useful
+* sticky bottom CTA on Plan / Review screens
+* scrollable group cards
+
+Avoid trying to fit too much on one screen.
+
+For the demo, make scrolling deliberate and short.
+
+---
+
+# Demo motion
+
+Keep animations subtle.
+
+Good:
+
+* card expansion
+* progress line while building plan
+* count-up for selected bytes
+* chip transitions
+* smooth section reveal
+
+Bad:
+
+* spinning AI particles
+* animated storage blobs
+* confetti
+* fake “scanning 40,000 files” loading animation
+
+---
+
+# Indexing state
+
+The indexing experience should be credible.
+
+When scanning:
+
+**Updating local index**
+
+Then smaller details:
+
+`Reading MediaStore`
+`Checking changed files`
+`Updating duplicate groups`
+
+Do not show nonsense like:
+
+**AI analyzing your phone...**
+
+The indexer is deterministic.
+
+---
+
+# Error/permission state
+
+You should prepare one permission state too.
+
+If a folder isn't accessible:
+
+**Access required**
+
+> Storage Intelligence can only analyze files Android allows it to access.
+
+Button:
+
+**Choose folder**
+
+This should use SAF.
+
+For private app data:
+
+**Not directly inspectable**
+
+> Android restricts access to this app's private storage.
+
+CTA:
+
+**Open app storage settings**
+
+This is an important credibility detail.
+
+---
+
+# Demo app naming
+
+Keep the app name:
+
+**Storage Intelligence**
+
+Do not use:
+
+* SmartClean AI
+* AI Cleaner Pro
+* CleanGPT
+* Storage Genius
+* Smart Storage Assistant
+
+Those sound generic.
+
+---
+
+# Icon / logo
+
+Keep it very simple.
+
+One possible concept:
+
+a **stacked storage block / folder shape with a small blue spark or index grid**
+
+Avoid obvious broom/trash icons as the main logo.
+
+The product is about **understanding and planning**, not just cleaning.
+
+---
+
+# Splash screen
+
+Minimal.
+
+Logo
+
+**Storage Intelligence**
+
+Small line:
+
+**Local. Explainable. User-controlled.**
+
+Then load directly into Home.
+
+---
+
+# Demo dataset styling
+
+This matters too.
+
+Use realistic student file names.
+
+Good:
+
+* `Engineering_Physics_Unit3.pdf`
+* `BEE_Lab_Record_Final.pdf`
+* `M1_Previous_Papers_2025.pdf`
+* `C_Programming_Lab.zip`
+* `DSA_Notes_Week2.pdf`
+
+Avoid:
+
+* `file1.pdf`
+* `test.pdf`
+* `demo_duplicate.pdf`
+
+The demo should look real.
+
+---
+
+# What the visual story should communicate
+
+By the end, the reviewer should visually understand:
+
+**Home**
+“I tell it what I want.”
+
+**Intent screen**
+“It understood my constraints.”
+
+**Plan**
+“It found enough storage candidates.”
+
+**Evidence**
+“It can prove duplicates and explain semantic matches.”
+
+**Review**
+“I know what goes and what stays.”
+
+**Action**
+“I approve the cleanup.”
+
+**Result**
+“It measured the outcome.”
+
+That is the full demo UX.
+
+---
+
+# Best theme direction
+
+If I had to describe the design in one sentence:
+
+> **Pixel-style Android utility, with a premium light theme, strong information hierarchy, subtle blue accent, evidence-first cards, and almost no decorative AI styling.**
+
+That is the style I would use for both the app and the presentation so they feel like one product.
