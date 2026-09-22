@@ -37,7 +37,7 @@ Use a system sans stack. Page titles are 1.5rem/1.875rem semibold; section title
 - Sticky bottom action area on Plan and Review, respecting navigation insets.
 - Prefer grouped rows and clear section rhythm over nested card grids.
 - Keep deliberate scrolling short on the scripted path.
-- Mobile fills the viewport; desktop centers a readable app surface without a decorative phone frame. Respect safe-area insets.
+- Mobile fills the viewport. Desktop centers a 432px-wide portrait canvas, capped at 844px tall, so the judged demo keeps its mobile composition without imitating device hardware. Respect safe-area insets.
 
 ## Components
 

@@ -55,7 +55,7 @@ export function IntentScreen({
 
       <section className="screen-section" aria-labelledby="target-heading">
         <div className="section-heading">
-          <div><h2 id="target-heading">Space target</h2><p>The plan may be partial if the selected files do not reach this amount.</p></div>
+          <div><h2 id="target-heading">Space target</h2><p>Optional for search-only requests. A targeted plan may be partial if selected files do not reach this amount.</p></div>
         </div>
         <div className="target-control">
           <label htmlFor="target-value">Amount</label>

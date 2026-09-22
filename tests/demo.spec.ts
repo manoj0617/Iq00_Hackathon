@@ -6,6 +6,23 @@ test.beforeEach(async ({ page }) => {
   await page.reload()
 })
 
+test('keeps the demo in a mobile canvas at every viewport', async ({ page }, testInfo) => {
+  const viewport = page.viewportSize()
+  const frame = await page.locator('.app-frame').boundingBox()
+
+  expect(viewport).not.toBeNull()
+  expect(frame).not.toBeNull()
+
+  if (testInfo.project.name === 'desktop') {
+    expect(frame!.width).toBe(432)
+    expect(frame!.height).toBeLessThanOrEqual(844)
+    expect(frame!.x).toBe((viewport!.width - frame!.width) / 2)
+  } else {
+    expect(frame!.width).toBe(viewport!.width)
+    expect(frame!.x).toBe(0)
+  }
+})
+
 test('completes the reviewable cleanup simulation and queries updated inventory', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Make room with a plan you can inspect' })).toBeVisible()
   await expect(page.getByText('Demo mode')).toBeVisible()
@@ -62,4 +79,14 @@ test('shows a shortfall when a selected group is removed', async ({ page }) => {
   await page.getByRole('button', { name: 'Done' }).click()
   await expect(page.getByText('The current selection is below target')).toBeVisible()
   await expect(page.getByText(/short$/).first()).toBeVisible()
+})
+
+test('supports a duplicate-only request without a space target', async ({ page }) => {
+  await page.getByRole('button', { name: 'Find exact duplicates' }).click()
+  await expect(page.getByRole('heading', { name: 'Review the interpretation' })).toBeVisible()
+  await expect(page.getByLabel('Amount')).toHaveValue('')
+  await page.getByRole('button', { name: 'Build plan' }).click()
+  await expect(page.getByRole('heading', { name: 'Cleanup plan' })).toBeVisible()
+  await expect(page.getByText('Exact duplicates', { exact: true })).toBeVisible()
+  await expect(page.getByText('None', { exact: true })).toBeVisible()
 })

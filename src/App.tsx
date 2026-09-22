@@ -118,10 +118,10 @@ export function App() {
 
   function buildPlan() {
     if (!intent) return
-    const amount = Number(targetValue)
-    if (!Number.isFinite(amount) || amount <= 0) { setError('Enter a target greater than zero.'); return }
+    const amount = targetValue.trim() ? Number(targetValue) : null
+    if (amount !== null && (!Number.isFinite(amount) || amount <= 0)) { setError('Enter a target greater than zero, or leave it blank for a search-only plan.'); return }
     if (!intent.priorities.length) { setError('Choose at least one supported cleanup priority.'); return }
-    const edited = { ...intent, targetBytes: Math.round(amount * (targetUnit === 'GB' ? 1_000_000_000 : 1_000_000)) }
+    const edited = { ...intent, targetBytes: amount === null ? null : Math.round(amount * (targetUnit === 'GB' ? 1_000_000_000 : 1_000_000)) }
     const next = buildCleanupPlan(inventory, edited)
     setIntent(edited); setPlan(next); setError(null); setDetailGroup(null); setScreen('plan')
     log('Cleanup plan built', `${next.selectedIds.length} sample records selected from revision ${inventory.revision}.`)
